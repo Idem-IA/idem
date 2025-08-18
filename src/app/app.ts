@@ -15,6 +15,7 @@ import { DashboardLayoutComponent } from './layouts/dashboard-layout/dashboard-l
 import { EmptyLayout } from "./layouts/empty-layout/empty-layout";
 import { NotificationContainerComponent } from './shared/components/notification-container/notification-container';
 import { QuotaWarningComponent } from './shared/components/quota-warning/quota-warning';
+import { isBrowser } from './utils/is-browsing';
 
 @Component({
   selector: 'app-root',
@@ -67,7 +68,10 @@ export class App implements OnInit, OnDestroy {
       .subscribe(() => {
         
         setTimeout(() => {
-          window.scrollTo({ top: 0, behavior: 'auto' });
+          // Faire une verification de la position de la page avant mise en place de la contrainte
+          if(isBrowser()){
+            window.scrollTo({ top: 0, behavior: 'auto' });
+          }
         }, 0);
       });
   }
@@ -78,7 +82,9 @@ export class App implements OnInit, OnDestroy {
   }
 
   protected resetPosition() {
-    window.scrollTo({ top: 0, behavior: 'auto' });
+    if(isBrowser()){
+      window.scrollTo({ top: 0, behavior: 'auto' });
+    }
   }
 
   protected readonly title = 'idem';
